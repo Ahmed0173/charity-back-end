@@ -1,7 +1,7 @@
 // models/Point.js
 // Point = transaction / log of points earned or spent by a user
 // activityType: event_attendance, volunteer_hour, renewal, share, manual
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const PointSchema = new Schema({
@@ -97,4 +97,4 @@ PointSchema.post('remove', async function(doc) {
   }
 });
 
-module.exports = mongoose.model('Point', PointSchema);
+export default mongoose.model('Point', PointSchema);

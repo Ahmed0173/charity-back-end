@@ -1,8 +1,9 @@
 // routes/eventRoutes.js
-const express = require('express');
+import express from 'express';
+import events from '../controllers/eventController.js';
+import authMiddleware from '../middlewares/authMiddleware.js';
+
 const router = express.Router();
-const events = require('../controllers/eventController');
-const authMiddleware = require('../middlewares/authMiddleware');
 
 router.post('/', authMiddleware, events.create);
 router.get('/', events.list);
@@ -10,4 +11,4 @@ router.get('/:id', events.get);
 router.put('/:id', authMiddleware, events.update);
 router.delete('/:id', authMiddleware, events.remove);
 
-module.exports = router;
+export default router;

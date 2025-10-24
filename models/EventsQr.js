@@ -1,7 +1,7 @@
 // models/EventQr.js
 // EventQr: a generated QR token for event attendance or check-in.
 // Admins can create tokens; each token can have expiry/max uses.
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const EventQrSchema = new Schema({
@@ -21,4 +21,4 @@ EventQrSchema.methods.isUsable = function() {
   return true;
 };
 
-module.exports = mongoose.model('EventQr', EventQrSchema);
+export default mongoose.model('EventQr', EventQrSchema);

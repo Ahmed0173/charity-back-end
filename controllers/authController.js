@@ -69,19 +69,13 @@ export const authController = {
   // -----------------------------
   async login(req, res) {
     try {
-      const { identifier, password } = req.body; // identifier = phone/email/membershipNumber
-      if (!identifier || !password)
+      const { email, password } = req.body;
+      if (!email || !password)
         return res
           .status(400)
-          .json({ ok: false, message: "Missing credentials" });
+          .json({ ok: false, message: "Missing email or password" });
 
-      const user = await User.findOne({
-        $or: [
-          { phone: identifier },
-          { email: identifier },
-          { membershipNumber: identifier },
-        ],
-      });
+      const user = await User.findOne({ email });
 
       if (!user)
         return res.status(401).json({ ok: false, message: "Invalid credentials" });

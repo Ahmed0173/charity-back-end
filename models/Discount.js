@@ -1,7 +1,7 @@
 // models/Discount.js
 // Discount: offers or deals tied to membership levels or globally.
 // Merchants can verify by scanning member QR and checking member's level/discount.
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const DiscountSchema = new Schema({
@@ -25,4 +25,4 @@ DiscountSchema.methods.isValidNow = function() {
   return true;
 };
 
-module.exports = mongoose.model('Discount', DiscountSchema);
+export default mongoose.model('Discount', DiscountSchema);

@@ -1,9 +1,9 @@
 // controllers/pointController.js
 // Points ledger: admin can add/remove points; users can view their point history
-const Point = require('../models/Point');
-const User = require('../models/User');
+import Point from '../models/Point.js';
+import User from '../models/User.js';
 
-module.exports = {
+export default {
   // get points for a user (self or admin)
   async listForUser(req, res) {
     try {

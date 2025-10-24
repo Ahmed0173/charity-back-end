@@ -1,8 +1,8 @@
 // controllers/userController.js
 // User CRUD and public profile for scanned QR (limited fields)
-const User = require('../models/User');
-const MembershipLevel = require('../models/MemberShipLevel');
-const { v4: uuidv4 } = require('uuid');
+import User from '../models/User.js';
+import MembershipLevel from '../models/MemberShipLevel.js';
+import { v4 as uuidv4 } from 'uuid';
 
 // helper to return public-safe user view
 function publicUserView(userDoc, levelDoc = null) {
@@ -16,11 +16,11 @@ function publicUserView(userDoc, levelDoc = null) {
   };
 }
 
-module.exports = {
+export default {
   // admin or user: get own profile
   async getProfile(req, res) {
     try {
-      const id = req.user.id;
+      const id = req.user._id;
       const user = await User.findById(id).populate('membershipLevel').lean();
       if (!user) return res.status(404).json({ ok:false, message: 'User not found' });
       return res.json({ ok:true, user });

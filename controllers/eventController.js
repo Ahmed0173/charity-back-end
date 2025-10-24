@@ -1,8 +1,8 @@
 // controllers/eventController.js
 // CRUD for events + optionally list upcoming events
-const Event = require('../models/Event');
+import Event from '../models/Event.js';
 
-module.exports = {
+export default {
   async create(req, res) {
     try {
       if (!req.user || req.user.role !== 'admin') return res.status(403).json({ ok:false, message: 'forbidden' });

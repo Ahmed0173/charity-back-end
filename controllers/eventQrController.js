@@ -1,12 +1,12 @@
 // controllers/eventQrController.js
 // Manage Event QR tokens (admin can create tokens). Also used by attendance scanner to validate token.
-const EventQr = require('../models/EventsQr');
-const Event = require('../models/Event');
-const Point = require('../models/Point');
-const User = require('../models/User');
-const { v4: uuidv4 } = require('uuid');
+import EventQr from '../models/EventsQr.js';
+import Event from '../models/Event.js';
+import Point from '../models/Point.js';
+import User from '../models/User.js';
+import { v4 as uuidv4 } from 'uuid';
 
-module.exports = {
+export default {
   // admin creates a new QR token for an event
   async createToken(req, res) {
     try {
