@@ -1,7 +1,7 @@
 // controllers/userController.js
 // User CRUD and public profile for scanned QR (limited fields)
 const User = require('../models/User');
-const MembershipLevel = require('../models/MembershipLevel');
+const MembershipLevel = require('../models/MemberShipLevel');
 const { v4: uuidv4 } = require('uuid');
 
 // helper to return public-safe user view

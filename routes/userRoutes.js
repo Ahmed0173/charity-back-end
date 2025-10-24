@@ -1,17 +1,18 @@
 // routes/userRoutes.js
-const express = require('express');
+import express from "express";
+import usersController from "../controllers/userController.js";
+import authMiddleware from "../middlewares/authMiddleware.js";
+
 const router = express.Router();
-const users = require('../controllers/userController');
-const authMiddleware = require('../middlewares/authMiddleware');
 
 // Protected user endpoints
-router.get('/me', authMiddleware, users.getProfile);
-router.get('/', authMiddleware, users.list); // consider admin-only in controller
-router.put('/:userId', authMiddleware, users.update);
-router.delete('/:userId', authMiddleware, users.remove);
-router.post('/:userId/generate-qr', authMiddleware, users.generatePersonalQr);
+router.get("/me", authMiddleware, usersController.getProfile);
+router.get("/", authMiddleware, usersController.list); // admin-only check in controller
+router.put("/:userId", authMiddleware, usersController.update);
+router.delete("/:userId", authMiddleware, usersController.remove);
+router.post("/:userId/generate-qr", authMiddleware, usersController.generatePersonalQr);
 
 // Public profile by token (no auth)
-router.get('/public/:token', users.publicViewByToken);
+router.get("/public/:token", usersController.publicViewByToken);
 
-module.exports = router;
+export default router;

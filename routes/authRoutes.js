@@ -1,10 +1,12 @@
 // routes/authRoutes.js
-const express = require('express');
+import express from "express";
+import authController from "../controllers/authController.js";
+
 const router = express.Router();
-const auth = require('../controllers/authController');
 
-router.post('/register', auth.register);
-router.post('/login', auth.login);
-router.post('/regenerate-qr/:userId', auth.regeneratePersonalQr); // protect in controller or via middleware
+// Auth endpoints
+router.post("/register", authController.register);
+router.post("/login", authController.login);
+router.post("/regenerate-qr/:userId", authController.regeneratePersonalQr); // protected in controller or middleware
 
-module.exports = router;
+export default router;

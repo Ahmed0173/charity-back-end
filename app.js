@@ -19,7 +19,7 @@ const app = express();
 
 // --- Basic security & parsing ---
 app.use(helmet());
-app.use(cors(corsConfig)); // use centralized CORS config
+app.use(cors(corsConfig));
 app.use(express.json({ limit: "5mb" }));
 app.use(express.urlencoded({ extended: true }));
 
@@ -44,15 +44,7 @@ app.use((req, res) => {
   res.status(404).json({ ok: false, message: "Not Found" });
 });
 
-// --- Error handler ---
-app.use((err, req, res, next) => {
-  console.error(err);
-  const status = err.status || 500;
-  const message =
-    process.env.NODE_ENV === "production" ? "Server error" : err.message;
-  res.status(status).json({ ok: false, message });
-});
-app.use(errorMiddleware);
-
+// --- Centralized error handler ---
+app.use(errorMiddleware); // <-- only one error handler
 
 export default app;

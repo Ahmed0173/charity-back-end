@@ -1,6 +1,6 @@
 // controllers/eventQrController.js
 // Manage Event QR tokens (admin can create tokens). Also used by attendance scanner to validate token.
-const EventQr = require('../models/EventQr');
+const EventQr = require('../models/EventsQr');
 const Event = require('../models/Event');
 const Point = require('../models/Point');
 const User = require('../models/User');

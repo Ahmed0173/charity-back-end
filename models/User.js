@@ -1,8 +1,7 @@
-// user
 // models/User.js
 // User model: member account and profile info
 // NOTE: store passwords hashed (bcrypt) in `passwordHash` if you use auth
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const UserSchema = new Schema({
@@ -23,4 +22,6 @@ const UserSchema = new Schema({
   role: { type: String, enum: ['member', 'admin'], default: 'member' }
 }, { timestamps: true });
 
-module.exports = mongoose.model('User', UserSchema);
+// Export as default for ESM
+const User = mongoose.model('User', UserSchema);
+export default User;

@@ -1,12 +1,14 @@
 // routes/levelRoutes.js
-const express = require('express');
+import express from "express";
+import levelsController from "../controllers/membershipLevelController.js";
+import authMiddleware from "../middlewares/authMiddleware.js";
+
 const router = express.Router();
-const levels = require('../controllers/membershipLevelController');
-const authMiddleware = require('../middlewares/authMiddleware');
 
-router.post('/', authMiddleware, levels.create);
-router.get('/', levels.list);
-router.put('/:id', authMiddleware, levels.update);
-router.delete('/:id', authMiddleware, levels.remove);
+// CRUD for membership levels
+router.post("/", authMiddleware, levelsController.create);
+router.get("/", levelsController.list);
+router.put("/:id", authMiddleware, levelsController.update);
+router.delete("/:id", authMiddleware, levelsController.remove);
 
-module.exports = router;
+export default router;

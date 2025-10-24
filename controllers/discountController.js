@@ -2,7 +2,7 @@
 // Manage discounts/offers and verify member eligibility when merchant scans member QR
 const Discount = require('../models/Discount');
 const User = require('../models/User');
-const MembershipLevel = require('../models/MembershipLevel');
+const MembershipLevel = require('../models/MemberShipLevel');
 
 module.exports = {
   // create offer (admin)
