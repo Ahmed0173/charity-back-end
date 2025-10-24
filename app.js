@@ -1,50 +1,58 @@
 // app.js
-// Configure and export the Express application.
-// The actual server start (app.listen) and DB connection should be done in server.js
+// Configure and export the Express application
 
-require('dotenv').config();
+import dotenv from "dotenv";
+import express from "express";
+import path from "path";
+import helmet from "helmet";
+import cors from "cors";
+import morgan from "morgan";
 
-const express = require('express');
-const path = require('path');
-const helmet = require('helmet');
-const cors = require('cors');
-const morgan = require('morgan');
+import apiRouter from "./routes/index.js";
+import corsConfig from "./config/cors.js";
+import errorMiddleware from "./middlewares/errorMiddleware.js";
 
-const apiRouter = require('./routes'); // routes/index.js (central router)
+dotenv.config();
 
+const __dirname = path.resolve();
 const app = express();
 
 // --- Basic security & parsing ---
-app.use(helmet()); // basic security headers
-app.use(cors());   // enable CORS (adjust options in production)
-app.use(express.json({ limit: '5mb' }));
+app.use(helmet());
+app.use(cors(corsConfig)); // use centralized CORS config
+app.use(express.json({ limit: "5mb" }));
 app.use(express.urlencoded({ extended: true }));
 
 // --- Logging ---
-if (process.env.NODE_ENV !== 'test') {
-  app.use(morgan('combined'));
+if (process.env.NODE_ENV !== "test") {
+  app.use(morgan("combined"));
 }
 
-// --- Static (if you serve assets like generated QR images) ---
-app.use('/public', express.static(path.join(__dirname, 'public')));
+// --- Static files (QR codes, assets, etc.) ---
+app.use("/public", express.static(path.join(__dirname, "public")));
 
 // --- API routes ---
-app.use('/api', apiRouter);
+app.use("/api", apiRouter);
 
 // --- Health check ---
-app.get('/health', (req, res) => res.json({ ok: true, ts: new Date().toISOString() }));
+app.get("/health", (req, res) =>
+  res.json({ ok: true, ts: new Date().toISOString() })
+);
 
 // --- 404 handler ---
-app.use((req, res, next) => {
-  res.status(404).json({ ok: false, message: 'Not Found' });
+app.use((req, res) => {
+  res.status(404).json({ ok: false, message: "Not Found" });
 });
 
 // --- Error handler ---
 app.use((err, req, res, next) => {
-  console.error(err); // keep this server-side; consider more advanced logging in production
+  console.error(err);
   const status = err.status || 500;
-  const message = process.env.NODE_ENV === 'production' ? 'Server error' : err.message;
+  const message =
+    process.env.NODE_ENV === "production" ? "Server error" : err.message;
   res.status(status).json({ ok: false, message });
 });
+app.use(errorMiddleware);
 
-module.exports = app;
+
+export default app;

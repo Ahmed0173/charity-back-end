@@ -1,13 +1,32 @@
-import express from "express";
-import cors from "cors";
+// server.js
+// Entry point: connects to MongoDB and starts the Express server
 
-const app = express();
-app.use(cors());
-app.use(express.json());
+import dotenv from "dotenv";
+import app from "./app.js";
+import connectDB from "./config/db.js";
 
-app.get("/", (req, res) => {
-  res.send("Hello from backend!");
-});
+dotenv.config();
 
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+// --- MongoDB connection ---
+connectDB()
+  .then(() => {
+    console.log("✅ MongoDB connected successfully");
+
+    // Start the server only after DB is connected
+    app.listen(PORT, () =>
+      console.log(`🚀 Server running on http://localhost:${PORT}`)
+    );
+  })
+  .catch((err) => {
+    console.error("❌ MongoDB connection failed:", err.message);
+    process.exit(1);
+  });
+
+// --- Graceful shutdown ---
+process.on("SIGINT", async () => {
+  await import("mongoose").then(({ default: mongoose }) => mongoose.connection.close());
+  console.log("🛑 MongoDB connection closed");
+  process.exit(0);
+});
