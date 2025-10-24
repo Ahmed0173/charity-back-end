@@ -1,6 +1,6 @@
 // models/Event.js
 // Event: details about an event; attendance points can be linked via EventQr or Points
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const EventSchema = new Schema({
@@ -20,4 +20,4 @@ EventSchema.virtual('qrs', {
   justOne: false
 });
 
-module.exports = mongoose.model('Event', EventSchema);
+export default mongoose.model('Event', EventSchema);

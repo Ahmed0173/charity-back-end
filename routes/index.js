@@ -5,11 +5,11 @@ import express from "express";
 // Import feature route modules (ESM)
 import authRoutes from "./authRoutes.js";
 import userRoutes from "./userRoutes.js";
-import levelRoutes from "./  levelRoutes.js";
-import eventRoutes from "./  eventRoutes.js";
-import eventQrRoutes from "./  eventQrRoutes.js";
-import pointRoutes from "./  pointRoutes.js";
-import discountRoutes from "./  discountRoutes.js";
+import levelRoutes from "./levelRoutes.js";
+import eventRoutes from "./eventRoutes.js";
+import eventQrRoutes from "./eventQrRoutes.js";
+import pointRoutes from "./pointRoutes.js";
+import discountRoutes from "./discountRoutes.js";
 
 const router = express.Router();
 

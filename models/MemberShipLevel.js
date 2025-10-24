@@ -1,6 +1,6 @@
 // models/MembershipLevel.js
 // MembershipLevel defines ranges and benefits for levels (e.g., Bronze/Silver/Gold/Platinum)
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const MembershipLevelSchema = new Schema({
@@ -14,4 +14,4 @@ const MembershipLevelSchema = new Schema({
 // Add an index to speed range queries (optional)
 MembershipLevelSchema.index({ minPoints: 1, maxPoints: 1 });
 
-module.exports = mongoose.model('MembershipLevel', MembershipLevelSchema);
+export default mongoose.model('MembershipLevel', MembershipLevelSchema);

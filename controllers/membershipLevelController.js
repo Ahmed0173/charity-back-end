@@ -1,8 +1,8 @@
 // controllers/membershipLevelController.js
 // Manage membership levels (CRUD)
-const MembershipLevel = require('../models/MemberShipLevel');
+import MembershipLevel from '../models/MemberShipLevel.js';
 
-module.exports = {
+export default {
   async create(req, res) {
     try {
       const payload = req.body;

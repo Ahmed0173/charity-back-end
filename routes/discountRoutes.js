@@ -1,11 +1,12 @@
 // routes/discountRoutes.js
-const express = require('express');
+import express from 'express';
+import discounts from '../controllers/discountController.js';
+import authMiddleware from '../middlewares/authMiddleware.js';
+
 const router = express.Router();
-const discounts = require('../controllers/discountController');
-const authMiddleware = require('../middlewares/authMiddleware');
 
 router.post('/', authMiddleware, discounts.create);
 router.get('/', discounts.list);
 router.post('/verify', discounts.verifyDiscount);
 
-module.exports = router;
+export default router;

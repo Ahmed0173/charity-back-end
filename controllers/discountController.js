@@ -1,10 +1,10 @@
 // controllers/discountController.js
 // Manage discounts/offers and verify member eligibility when merchant scans member QR
-const Discount = require('../models/Discount');
-const User = require('../models/User');
-const MembershipLevel = require('../models/MemberShipLevel');
+import Discount from '../models/Discount.js';
+import User from '../models/User.js';
+import MembershipLevel from '../models/MemberShipLevel.js';
 
-module.exports = {
+export default {
   // create offer (admin)
   async create(req, res) {
     try {
